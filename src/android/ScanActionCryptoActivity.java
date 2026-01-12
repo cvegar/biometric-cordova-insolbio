@@ -19,10 +19,6 @@ import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbException;
 import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbHost;
 import com.rsa.CryptoUtil;
-import com.zytrust.android.lib.bio.morpho.ui.BioCapture;
-import com.zytrust.android.lib.bio.morpho.ui.IBioCapture;
-import com.zytrust.android.lib.bio.morpho.ui.ZyRequest;
-import com.zytrust.android.lib.bio.morpho.ui.ZyResponse;
 
 import SecuGen.FDxSDKPro.JSGFPLib;
 import SecuGen.FDxSDKPro.SGFDxDeviceName;
@@ -111,68 +107,6 @@ private String clean(String s) {
 }
 
 
-    private void initializeMorpho() {
-        fingerprintBrand = "Morpho";
-        Toast toast = Toast.makeText(ScanActionCryptoActivity.this, "Ingrese el dedo indicado o el " + Utils.getFingerName(hleft), Toast.LENGTH_SHORT);
-
-        IBioCapture iBioCapture = new BioCapture(this, new IBioCapture.ICallback() {
-            @Override
-            public void onStart() {
-                if (hleft != null) {
-                    toast.show();
-                }
-            }
-
-            @Override
-            public void onComplete() {
-            }
-
-            @Override
-            public void onSuccess(ZyResponse zyResponse) {
-                toast.cancel();
-                if (zyResponse.getWsq() != null) {
-                    //Toast.makeText(getApplicationContext(), "Software versiòn: "+zyResponse.getSoftwareVersion(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), "Huella capturada", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent();
-                    CryptoUtil.loadKeys();
-                    String encriptedBase64 = null;
-                    try {
-                        encriptedBase64 = CryptoUtil.encrypt_(Utils.formatWsqToBase64(zyResponse.getWsq()));
-                        System.out.println("Encrypted Data: " + encriptedBase64);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    intent.putExtra("huellab64", encriptedBase64);
-                    intent.putExtra("serialnumber", zyResponse.getSoftwareVersion());
-                    intent.putExtra("fingerprint_brand", fingerprintBrand);
-                    intent.putExtra("bioversion", bioversion);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
-                }
-            }
-
-            @Override
-            public void onError(ZyResponse obj) {
-                toast.cancel();
-                if (obj.getDeError().contains("19005")) {
-                    Toast.makeText(getApplicationContext(), "Using digital", Toast.LENGTH_SHORT).show();
-                } else if (obj.getDeError().contains("-1000")) {
-                    Toast.makeText(getApplicationContext(), "Intentando con huellero Eikon", Toast.LENGTH_SHORT).show();
-                    initializeEikon();
-                } else {
-                    Toast.makeText(getApplicationContext(), obj.getDeError(), Toast.LENGTH_SHORT).show();
-                    initializeEikon();
-                    //finish();
-                }
-            }
-        });
-
-        ZyRequest zyRequest = new ZyRequest();
-        zyRequest.setIdDedo(hright);
-        zyRequest.setTimeout(30);
-        iBioCapture.capturar(zyRequest);
-    }
 
     private void initializeEikon() {
         fingerprintBrand = "Eikon";

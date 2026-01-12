@@ -18,10 +18,6 @@ import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbException;
 import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbHost;
-import com.zytrust.android.lib.bio.morpho.ui.BioCapture;
-import com.zytrust.android.lib.bio.morpho.ui.IBioCapture;
-import com.zytrust.android.lib.bio.morpho.ui.ZyRequest;
-import com.zytrust.android.lib.bio.morpho.ui.ZyResponse;
 
 import SecuGen.FDxSDKPro.JSGFPLib;
 import SecuGen.FDxSDKPro.SGFDxDeviceName;
@@ -75,72 +71,12 @@ public class ScanActionActivity extends Activity {
         }
 
         Log.v("XXX", instructions);
-        /*
-        long error = sgfplib.Init(SGFDxDeviceName.SG_DEV_AUTO);
-
-        if (error == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-            initalizeSecugen();
-        } else {
-            initializeMorpho();
-        }
-        */
+      
         initializeEikon();
     }
 
 
-    private void initializeMorpho() {
-        fingerprintBrand = "Morpho";
-        Toast toast = Toast.makeText(ScanActionActivity.this, "Ingrese el dedo indicado o el " + Utils.getFingerName(hleft), Toast.LENGTH_SHORT);
-
-        IBioCapture iBioCapture = new BioCapture(this, new IBioCapture.ICallback() {
-            @Override
-            public void onStart() {
-                if (hleft != null) {
-                    toast.show();
-                }
-            }
-
-            @Override
-            public void onComplete() {
-            }
-
-            @Override
-            public void onSuccess(ZyResponse zyResponse) {
-                toast.cancel();
-                if (zyResponse.getWsq() != null) {
-                    //Toast.makeText(getApplicationContext(), "Software versiòn: "+zyResponse.getSoftwareVersion(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), "Huella capturada", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent();
-                    intent.putExtra("huellab64", Utils.formatWsqToBase64(zyResponse.getWsq()));
-                    intent.putExtra("serialnumber", zyResponse.getSoftwareVersion());
-                    intent.putExtra("fingerprint_brand", fingerprintBrand);
-                    intent.putExtra("bioversion", bioversion);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
-                }
-            }
-
-            @Override
-            public void onError(ZyResponse obj) {
-                toast.cancel();
-                if (obj.getDeError().contains("19005")) {
-                    Toast.makeText(getApplicationContext(), "Using digital", Toast.LENGTH_SHORT).show();
-                } else if (obj.getDeError().contains("-1000")) {
-                    Toast.makeText(getApplicationContext(), "Intentando con huellero Eikon", Toast.LENGTH_SHORT).show();
-                    initializeEikon();
-                } else {
-                    Toast.makeText(getApplicationContext(), obj.getDeError(), Toast.LENGTH_SHORT).show();
-                    initializeEikon();
-                    //finish();
-                }
-            }
-        });
-
-        ZyRequest zyRequest = new ZyRequest();
-        zyRequest.setIdDedo(hright);
-        zyRequest.setTimeout(30);
-        iBioCapture.capturar(zyRequest);
-    }
+    
 
     private void initializeEikon() {
         fingerprintBrand = "Eikon";
@@ -160,16 +96,6 @@ public class ScanActionActivity extends Activity {
         }
     }
 
-    private void initalizeSecugen() {
-        fingerprintBrand = "Secugen";
-
-        Intent intent = new Intent(ScanActionActivity.this, JSGDActivity.class);
-        intent.putExtra("device_name", m_deviceName);
-        intent.putExtra("instructions", instructions);
-        intent.putExtra("right_finger", hright);
-        intent.putExtra("left_finger", hleft);
-        startActivityForResult(intent, 1);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
