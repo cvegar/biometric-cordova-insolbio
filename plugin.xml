@@ -131,5 +131,6 @@
         <lib-file src="src/android/libs/CriptoAPI.jar" />
         <lib-file src="src/android/libs/dpuareu.aar" />
         <lib-file src="src/android/libs/FDxSDKProAndroid.jar" />
+        <!-- zymorpholib removed: no local AAR reference -->
     </platform>
 </plugin>
