@@ -61,8 +61,12 @@ public class ScanActionInsolbioActivity extends Activity {
 
         Intent intent = getIntent();
         instructions = intent.getStringExtra("file");
-
-        instructions = instructions.substring(2, instructions.length() - 2);
+        
+        if (instructions != null) {
+            instructions = instructions.substring(2, instructions.length() - 2);
+        } else {
+            instructions = "1";
+        }
 
         fingerprintBrand = null;
         bioversion=Utils.fnVersion(this);
