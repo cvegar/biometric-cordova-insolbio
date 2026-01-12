@@ -65,6 +65,15 @@
                 </intent-filter>
             </activity>
 
+            <activity
+                android:name="biometric.entel.ScanActionInsolbioActivity"
+                android:exported="true">
+                <intent-filter>
+                    <action android:name="pe.entel.biometrico.intent.action.SCANI"/>
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+            </activity>
+
             <activity 
                 android:name="biometric.entel.JSGDActivity"
                 android:exported="false" />
