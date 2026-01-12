@@ -73,8 +73,9 @@ public class ScanActionInsolbioActivity extends Activity {
                     .replace("]", "").replace("\"", "");
             hleft = getIntent().getExtras().getString("hleft").replace("[", "")
                     .replace("]", "").replace("\"", "");
-            flagFakeFinger = getIntent().getExtras().getString("flagff").replace("[", "")
+            String flagStr = getIntent().getExtras().getString("flagff").replace("[", "")
                     .replace("]", "").replace("\"", "");
+            flagFakeFinger = Integer.parseInt(flagStr);
 
             Log.d(TAG, "ded: " + hright + hleft);
         }
