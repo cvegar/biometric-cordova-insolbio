@@ -131,6 +131,5 @@
         <lib-file src="src/android/libs/CriptoAPI.jar" />
         <lib-file src="src/android/libs/dpuareu.aar" />
         <lib-file src="src/android/libs/FDxSDKProAndroid.jar" />
-        <lib-file src="src/android/libs/zymorpholib_v64_entel-release_6.42.0.v2.6.9.aar" />
     </platform>
 </plugin>
