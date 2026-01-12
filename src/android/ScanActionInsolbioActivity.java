@@ -69,13 +69,9 @@ public class ScanActionInsolbioActivity extends Activity {
 
         if (!getIntent().getBooleanExtra("op", false)) {
             //called from oustystems from callactivity
-             hright = getIntent().getExtras().getString("hright").replace("[", "")
-                    .replace("]", "").replace("\"", "");
-            hleft = getIntent().getExtras().getString("hleft").replace("[", "")
-                    .replace("]", "").replace("\"", "");
-            String flagStr = getIntent().getExtras().getString("flagff").replace("[", "")
-                    .replace("]", "").replace("\"", "");
-            flagFakeFinger = Integer.parseInt(flagStr);
+            hright = Utils.getFlagExtraClean(getIntent(), "hright");
+            hleft = Utils.getFlagExtraClean(getIntent(), "hleft");
+            flagFakeFinger = Utils.getFlagExtraCleanInt(getIntent(), "flagff");
 
             Log.d(TAG, "ded: " + hright + hleft);
         }

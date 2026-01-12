@@ -130,9 +130,20 @@ public class Utils {
         return name;
     }
 
-     //obtener flag en valor entero desde el intent
+     //obtener flag limpio desde el intent
  
-    public static int getFlagExtraClean(Intent intent, String key) {
+    public static String getFlagExtraClean(Intent intent, String key) {
+        try {
+            String raw = intent.getStringExtra(key);
+            if (raw == null) return "0";
+            return raw.replace("[", "").replace("]", "").replace("\"", "");
+        } catch (Exception e) {
+            return "0";
+        }
+    }
+
+    //obtener flag limpio desde el intent como entero
+    public static int getFlagExtraCleanInt(Intent intent, String key) {
         try {
             String raw = intent.getStringExtra(key);
             if (raw == null) return 0;
