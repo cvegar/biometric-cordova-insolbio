@@ -19,10 +19,6 @@ import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbException;
 import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbHost;
 import com.rsa.CryptoUtil;
-import com.zytrust.android.lib.bio.morpho.ui.BioCapture;
-import com.zytrust.android.lib.bio.morpho.ui.IBioCapture;
-import com.zytrust.android.lib.bio.morpho.ui.ZyRequest;
-import com.zytrust.android.lib.bio.morpho.ui.ZyResponse;
 
 import SecuGen.FDxSDKPro.JSGFPLib;
 import SecuGen.FDxSDKPro.SGFDxDeviceName;
