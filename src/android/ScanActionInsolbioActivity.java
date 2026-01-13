@@ -191,7 +191,8 @@ public class ScanActionInsolbioActivity extends Activity {
                     intent.putExtra("error",data.getStringExtra("error") );
                     intent.putExtra("key",keyEncripted);
                     intent.putExtra("extra",scorePADEncrypted);
-
+                    intent.putExtra("product",data.getStringExtra("product"));
+                    intent.putExtra("vendor",data.getStringExtra("vendor"));
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                     break;
@@ -200,6 +201,8 @@ public class ScanActionInsolbioActivity extends Activity {
                     intent.putExtra("fingerprint_brand", fingerprintBrand);
                     intent.putExtra("bioversion", bioversion);
                     intent.putExtra("error",data.getStringExtra("error") );
+                    intent.putExtra("product",data.getStringExtra("product"));
+                    intent.putExtra("vendor",data.getStringExtra("vendor"));
                     setResult(Activity.RESULT_CANCELED, intent);
                     finish();
                     break;
